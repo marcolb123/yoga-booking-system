@@ -1,26 +1,37 @@
 
 {{> head}}
 {{> header}}
-<h1>Upcoming Courses</h1>
+
+<section class="hero">
+  <h1>Welcome to Yoga &amp; Mindfulness Studio</h1>
+  <p>Discover our range of yoga classes and mindfulness workshops for all levels. Build strength, flexibility, and inner peace with our expert instructors.</p>
+  <div class="actions">
+    <a class="btn primary" href="/courses">Browse Courses</a>
+    <a class="btn" href="/about">Learn More</a>
+  </div>
+</section>
+
+<h2>Upcoming Courses</h2>
 
 <div class="cards">
   {{#courses}}
   <article class="card">
-    <h2>/courses/{{title}}</a></h2>
+    <h2><a href="/courses/{{id}}">{{title}}</a></h2>
     <p class="muted">
-      Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
+      Level: {{level}} &bull; Type: {{type}} {{#allowDropIn}}&bull; Drop-in OK{{/allowDropIn}}
     </p>
     <p>{{description}}</p>
-    <p class="muted">Dates: {{startDate}}  {{endDate}}</p>
-    <p class="muted">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
-    <p>/courses/View &amp; Book</a></p>
+    {{#location}}<p class="muted">Location: {{location}}</p>{{/location}}
+    {{#price}}<p class="muted">Price: {{price}}</p>{{/price}}
+    <p class="muted">Dates: {{startDate}} &ndash; {{endDate}}</p>
+    <p class="muted">Next session: {{nextSession}} &bull; Sessions: {{sessionsCount}}</p>
+    <a class="btn primary" href="/courses/{{id}}">View &amp; Book</a>
   </article>
   {{/courses}}
 
   {{^courses}}
-    <p>No courses available yet.</p>
+    <p>No courses available yet. Check back soon!</p>
   {{/courses}}
 </div>
 
 {{> footer}}
-``

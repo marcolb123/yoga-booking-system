@@ -1,0 +1,36 @@
+
+{{> head}}
+{{> header}}
+
+<h1>Manage Students</h1>
+
+{{#users}}
+<table class="table">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Registered</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#users}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{createdAt}}</td>
+      <td>
+        <form method="post" action="/organiser/users/{{id}}/delete" style="display:inline" onsubmit="return confirm('Remove student {{name}}?')">
+          <button class="btn" type="submit" style="color:#c0392b">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {{/users}}
+  </tbody>
+</table>
+{{/users}}
+{{^users}}
+<p class="muted">No students registered yet.</p>
+{{/users}}
+
+<div class="actions">
+  <a class="btn" href="/organiser">&larr; Dashboard</a>
+</div>
+
+{{> footer}}

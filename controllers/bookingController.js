@@ -24,9 +24,8 @@ export const bookSession = async (req, res) => {
     res.status(201).json({ booking });
   } catch (err) {
     console.error(err);
-    res
-      .status(err.code === "DROPIN_NOT_ALLOWED" ? 400 : 500)
-      .json({ error: err.message });
+    const status = err.code === "DROPIN_NOT_ALLOWED" ? 400 : 400;
+    res.status(status).json({ error: err.message });
   }
 };
 

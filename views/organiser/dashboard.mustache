@@ -1,0 +1,28 @@
+
+{{> head}}
+{{> header}}
+
+<h1>Organiser Dashboard</h1>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <h3>{{stats.coursesCount}}</h3>
+    <p>Courses</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{stats.bookingsCount}}</h3>
+    <p>Active Bookings</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{stats.studentsCount}}</h3>
+    <p>Students</p>
+  </div>
+</div>
+
+<nav style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.5rem">
+  <a class="btn primary" href="/organiser/courses">Manage Courses</a>
+  <a class="btn" href="/organiser/users">Manage Students</a>
+  <a class="btn" href="/organiser/organisers">Manage Organisers</a>
+</nav>
+
+{{> footer}}

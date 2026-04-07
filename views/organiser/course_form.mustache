@@ -1,0 +1,106 @@
+
+{{> head}}
+{{> header}}
+
+<h1>{{title}}</h1>
+
+{{#errors}}
+<div class="alert error" role="alert">
+  <ul style="margin:0;padding-left:1.2rem">
+    {{#errors}}
+    <li>{{.}}</li>
+    {{/errors}}
+  </ul>
+</div>
+{{/errors}}
+
+<form method="post" action="{{action}}">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+    <div class="field" style="grid-column:1/-1">
+      <label for="title">Course Title <span style="color:#c0392b">*</span></label>
+      <input id="title" name="title" type="text" required value="{{course.title}}">
+    </div>
+
+    <div class="field" style="grid-column:1/-1">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4">{{course.description}}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="level">Level <span style="color:#c0392b">*</span></label>
+      <select id="level" name="level" required>
+        <option value="">-- Select --</option>
+        <option value="beginner" {{#course.isBeginnerSelected}}selected{{/course.isBeginnerSelected}}>Beginner</option>
+        <option value="intermediate" {{#course.isIntermediateSelected}}selected{{/course.isIntermediateSelected}}>Intermediate</option>
+        <option value="advanced" {{#course.isAdvancedSelected}}selected{{/course.isAdvancedSelected}}>Advanced</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="type">Type <span style="color:#c0392b">*</span></label>
+      <select id="type" name="type" required>
+        <option value="">-- Select --</option>
+        <option value="WEEKLY_BLOCK" {{#course.isWeeklyBlockSelected}}selected{{/course.isWeeklyBlockSelected}}>Weekly Block</option>
+        <option value="WEEKEND_WORKSHOP" {{#course.isWeekendWorkshopSelected}}selected{{/course.isWeekendWorkshopSelected}}>Weekend Workshop</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="startDate">Start Date <span style="color:#c0392b">*</span></label>
+      <input id="startDate" name="startDate" type="date" required value="{{course.startDate}}">
+    </div>
+
+    <div class="field">
+      <label for="endDate">End Date <span style="color:#c0392b">*</span></label>
+      <input id="endDate" name="endDate" type="date" required value="{{course.endDate}}">
+    </div>
+
+    <div class="field">
+      <label for="location">Location</label>
+      <input id="location" name="location" type="text" value="{{course.location}}" placeholder="e.g. Studio A, 12 High Street">
+    </div>
+
+    <div class="field">
+      <label for="price">Price (&pound;)</label>
+      <input id="price" name="price" type="number" step="0.01" min="0" value="{{course.price}}" placeholder="e.g. 45.00">
+    </div>
+
+    <div class="field" style="grid-column:1/-1">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+        <input type="checkbox" name="allowDropIn" {{#course.allowDropIn}}checked{{/course.allowDropIn}}>
+        Allow drop-in attendance (individual session booking)
+      </label>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">{{#isEdit}}Save Changes{{/isEdit}}{{^isEdit}}Create Course{{/isEdit}}</button>
+    <a class="btn" href="/organiser/courses">Cancel</a>
+  </div>
+</form>
+
+{{#isEdit}}
+<hr style="margin:2rem 0;border:none;border-top:1px solid var(--line)">
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+  <h2 style="margin:0">Sessions</h2>
+  <a class="btn" href="/organiser/courses/{{course.id}}/sessions/new">+ Add Session</a>
+</div>
+
+{{#sessions}}
+<div style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--line)">
+  <span>{{start}} &ndash; {{end}} &bull; Capacity: {{capacity}} &bull; Booked: {{bookedCount}}</span>
+  <div style="display:flex;gap:0.5rem">
+    <a class="btn" href="/organiser/sessions/{{id}}/class-list">Class list</a>
+    <form method="post" action="/organiser/sessions/{{id}}/delete" style="display:inline" onsubmit="return confirm('Delete this session?')">
+      <button class="btn" type="submit" style="color:#c0392b">Delete</button>
+    </form>
+  </div>
+</div>
+{{/sessions}}
+{{^sessions}}
+<p class="muted">No sessions yet.</p>
+{{/sessions}}
+{{/isEdit}}
+
+{{> footer}}

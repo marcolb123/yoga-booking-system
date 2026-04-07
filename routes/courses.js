@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { CourseModel } from "../models/courseModel.js";
 import { SessionModel } from "../models/sessionModel.js";
+import { requireOrganiser } from "../middlewares/authenticate.js";
 
 const router = Router();
 
@@ -11,8 +12,8 @@ router.get("/", async (req, res) => {
   res.json({ courses });
 });
 
-// Create course
-router.post("/", async (req, res) => {
+// Create course (organiser only)
+router.post("/", requireOrganiser, async (req, res) => {
   const course = await CourseModel.create(req.body);
   res.status(201).json({ course });
 });

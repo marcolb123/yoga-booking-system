@@ -1,0 +1,3 @@
+{"$$indexCreated":{"fieldName":"userId","unique":false,"sparse":false}}
+{"$$indexCreated":{"fieldName":"courseId","unique":false,"sparse":false}}
+{"userId":"25FPjPObwYZflSPa","courseId":"56j6Qb9pUWAhzoww","type":"COURSE","sessionIds":["OlywuvM7ZY0Q8Dor","Ui4tM4Naw7hDpFDT","B4h0gfwBvBAYM0YK","GkXezOof3jWHTElM","wP29Dsvf6Q221cq0","Hc7r6z20VZm966Wl","xsrrqSncZlGGEIb7","uSaOJXB3aozKNBqO","tfYDcTeZ8oA4YzYb","K4hzKO4xKiVCmalA","jExy01WAP9jhzFhk","JD5CQ8bYCW8lv9rd"],"status":"CONFIRMED","createdAt":"2026-04-07T13:15:07.171Z","_id":"D4LrWx3l1NRRdx7U"}

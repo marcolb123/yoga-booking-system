@@ -19,14 +19,14 @@ describe("SSR view routes", () => {
     expect(res.text).toMatch(/Courses|Upcoming Courses/i);
   });
 
-  test("GET /courses (list page) renders HTML and shows Test Course", async () => {
+  test("GET /courses (list page) returns 200 HTML with Test Course", async () => {
     const res = await request(app).get("/courses");
     expect(res.status).toBe(200);
     expect(res.headers["content-type"]).toMatch(/html/);
     expect(res.text).toMatch(/Test Course/);
   });
 
-  test("GET /courses/:id (detail page) renders HTML", async () => {
+  test("GET /courses/:id returns 200 HTML with Test Course detail", async () => {
     const res = await request(app).get(`/courses/${data.course._id}`);
     expect(res.status).toBe(200);
     expect(res.headers["content-type"]).toMatch(/html/);

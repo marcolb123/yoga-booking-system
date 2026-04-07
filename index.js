@@ -69,19 +69,20 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+dotenv.config();
+
 import mustacheExpress from "mustache-express";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// import authRoutes from './routes/auth.js';
+import authRoutes from "./routes/auth.js";
 import courseRoutes from "./routes/courses.js";
 import sessionRoutes from "./routes/sessions.js";
 import bookingRoutes from "./routes/bookings.js";
 import viewRoutes from "./routes/views.js";
-import { attachDemoUser } from "./middlewares/demoUser.js";
+import organiserRoutes from "./routes/organiser.js";
+import { optionalAuth } from "./middlewares/authenticate.js";
 import { initDb } from "./models/_db.js";
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -104,27 +105,38 @@ app.use(cookieParser());
 // Static
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-// Demo user
-app.use(attachDemoUser);
+// Make year available in all templates
+app.use((req, res, next) => {
+  res.locals.year = new Date().getFullYear();
+  next();
+});
+
+// JWT auth — attach user to req/res.locals on every request
+app.use(optionalAuth);
 
 // Health
 app.get("/health", (req, res) => res.json({ ok: true }));
 
-// JSON API routes
-// app.use('/auth', authRoutes);
-app.use("/courses", courseRoutes);
-app.use("/sessions", sessionRoutes);
-app.use("/bookings", bookingRoutes);
+// Auth routes
+app.use("/auth", authRoutes);
+
+// Organiser routes
+app.use("/organiser", organiserRoutes);
+
+// JSON API routes (prefixed with /api to avoid conflict with SSR views)
+app.use("/api/courses", courseRoutes);
+app.use("/api/sessions", sessionRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // SSR view routes
 app.use("/", viewRoutes);
 
 // Errors
 export const not_found = (req, res) =>
-  res.status(404).type("text/plain").send("404 Not found.");
+  res.status(404).render("error", { title: "Not Found", message: "Page not found." });
 export const server_error = (err, req, res, next) => {
   console.error(err);
-  res.status(500).type("text/plain").send("Internal Server Error.");
+  res.status(500).render("error", { title: "Server Error", message: "Something went wrong." });
 };
 app.use(not_found);
 app.use(server_error);
@@ -134,6 +146,6 @@ if (process.env.NODE_ENV !== "test") {
   await initDb();
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () =>
-    console.log(`Yoga booking running on http://localhost:${PORT}`)
+    console.log(`Yoga & Mindfulness Studio running on http://localhost:${PORT}`)
   );
 }

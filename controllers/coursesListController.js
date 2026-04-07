@@ -91,6 +91,8 @@ export const coursesListPage = async (req, res, next) => {
           nextSession: first ? fmtDateTime(first.startDateTime) : "TBA",
           sessionsCount: sessions.length,
           description: c.description,
+          location: c.location || "",
+          price: c.price ? `\u00a3${Number(c.price).toFixed(2)}` : "",
         };
       })
     );
@@ -114,9 +116,16 @@ export const coursesListPage = async (req, res, next) => {
         type,
         dropin,
         q,
+        isBeginner: level === "beginner",
+        isIntermediate: level === "intermediate",
+        isAdvanced: level === "advanced",
+        isWeeklyBlock: type === "WEEKLY_BLOCK",
+        isWeekendWorkshop: type === "WEEKEND_WORKSHOP",
+        dropinOnly: dropin === "yes",
       },
       courses: cards,
       pagination,
+      year: new Date().getFullYear(),
     });
   } catch (err) {
     next(err);

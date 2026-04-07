@@ -1,0 +1,37 @@
+
+{{> head}}
+{{> header}}
+
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem">
+  <h1 style="margin:0">Manage Courses</h1>
+  <a class="btn primary" href="/organiser/courses/new">+ Add Course</a>
+</div>
+
+{{#courses}}
+<div class="card" style="margin-bottom:1rem">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+    <div>
+      <h2 style="margin:0 0 0.25rem">{{title}}</h2>
+      <p class="muted" style="margin:0">{{level}} &bull; {{type}}{{#location}} &bull; {{location}}{{/location}}{{#price}} &bull; {{price}}{{/price}} &bull; {{sessionsCount}} sessions</p>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+      <a class="btn" href="/organiser/courses/{{id}}/edit">Edit</a>
+      <a class="btn" href="/organiser/courses/{{id}}/sessions/new">+ Session</a>
+      <form method="post" action="/organiser/courses/{{id}}/delete" style="display:inline" onsubmit="return confirm('Delete this course and all its sessions?')">
+        <button class="btn" type="submit" style="color:#c0392b">Delete</button>
+      </form>
+    </div>
+  </div>
+  {{#sessions}}
+  <p style="margin:0.5rem 0 0;font-size:0.875rem">
+    <a class="muted" href="/organiser/sessions/{{id}}/class-list">{{start}} &mdash; class list</a>
+  </p>
+  {{/sessions}}
+</div>
+{{/courses}}
+
+{{^courses}}
+<p>No courses yet. <a href="/organiser/courses/new">Add one.</a></p>
+{{/courses}}
+
+{{> footer}}

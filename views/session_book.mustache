@@ -1,0 +1,29 @@
+
+{{> head}}
+{{> header}}
+
+<article>
+  <h1>Book Drop-in Session</h1>
+  {{#course}}<p class="muted">Course: <a href="/courses/{{id}}">{{title}}</a>{{#location}} &bull; {{location}}{{/location}}</p>{{/course}}
+
+  <div class="kv" style="margin:1rem 0">
+    <dt>Start</dt><dd>{{session.start}}</dd>
+    <dt>End</dt><dd>{{session.end}}</dd>
+    <dt>Capacity</dt><dd>{{session.capacity}}</dd>
+    <dt>Places remaining</dt><dd>{{session.remaining}}</dd>
+  </div>
+
+  {{#session.remaining}}
+  <form method="post" action="/sessions/{{session.id}}/book">
+    <div class="actions">
+      <button class="btn primary" type="submit">Confirm Drop-in Booking</button>
+      {{#course}}<a class="btn" href="/courses/{{id}}">Cancel</a>{{/course}}
+    </div>
+  </form>
+  {{/session.remaining}}
+  {{^session.remaining}}
+  <p class="alert error">This session is fully booked.</p>
+  {{/session.remaining}}
+</article>
+
+{{> footer}}

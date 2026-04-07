@@ -1,0 +1,39 @@
+
+{{> head}}
+{{> header}}
+
+<h1>My Bookings</h1>
+
+{{#bookings}}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Booked On</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#bookings}}
+    <tr>
+      <td><a href="/courses/{{courseId}}">{{courseTitle}}</a></td>
+      <td>{{type}}</td>
+      <td><span class="badge {{statusClass}}">{{status}}</span></td>
+      <td>{{createdAt}}</td>
+      <td><a class="btn" href="/bookings/{{id}}">View</a></td>
+    </tr>
+    {{/bookings}}
+  </tbody>
+</table>
+{{/bookings}}
+{{^bookings}}
+<p class="muted">You have no bookings yet. <a href="/courses">Browse courses</a> to get started.</p>
+{{/bookings}}
+
+<div class="actions">
+  <a class="btn" href="/courses">Browse Courses</a>
+</div>
+
+{{> footer}}

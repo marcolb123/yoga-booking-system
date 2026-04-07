@@ -1,0 +1,73 @@
+
+{{> head}}
+{{> header}}
+
+<h1>Manage Organisers</h1>
+
+{{#error}}
+<div class="alert error" role="alert">{{error}}</div>
+{{/error}}
+
+{{#organisers}}
+<table class="table" style="margin-bottom:2rem">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Added</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#organisers}}
+    <tr>
+      <td>{{name}}{{#isSelf}} <span class="badge confirmed">you</span>{{/isSelf}}</td>
+      <td>{{email}}</td>
+      <td>{{createdAt}}</td>
+      <td>
+        {{^isSelf}}
+        <form method="post" action="/organiser/organisers/{{id}}/delete" style="display:inline" onsubmit="return confirm('Remove organiser {{name}}?')">
+          <button class="btn" type="submit" style="color:#c0392b">Remove</button>
+        </form>
+        {{/isSelf}}
+      </td>
+    </tr>
+    {{/organisers}}
+  </tbody>
+</table>
+{{/organisers}}
+{{^organisers}}
+<p class="muted">No organisers yet.</p>
+{{/organisers}}
+
+<hr style="margin:2rem 0;border:none;border-top:1px solid var(--line)">
+<h2>Add Organiser</h2>
+
+{{#addErrors}}
+<div class="alert error" role="alert">
+  <ul style="margin:0;padding-left:1.2rem">
+    {{#addErrors}}
+    <li>{{.}}</li>
+    {{/addErrors}}
+  </ul>
+</div>
+{{/addErrors}}
+
+<form method="post" action="/organiser/organisers/add" style="max-width:480px">
+  <div class="field">
+    <label for="name">Full name</label>
+    <input id="name" name="name" type="text" required value="{{addFields.name}}">
+  </div>
+  <div class="field">
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email" required value="{{addFields.email}}">
+  </div>
+  <div class="field">
+    <label for="password">Password <span class="muted">(minimum 8 characters)</span></label>
+    <input id="password" name="password" type="password" required minlength="8">
+  </div>
+  <div class="actions">
+    <button class="btn primary" type="submit">Add Organiser</button>
+  </div>
+</form>
+
+<div class="actions" style="margin-top:2rem">
+  <a class="btn" href="/organiser">&larr; Dashboard</a>
+</div>
+
+{{> footer}}

@@ -33,4 +33,6 @@ export async function initDb() {
   // Ensure helpful indexes are ready before we insert
   await usersDb.ensureIndex({ fieldName: "email", unique: true });
   await sessionsDb.ensureIndex({ fieldName: "courseId" });
+  await bookingsDb.ensureIndex({ fieldName: "userId" });
+  await bookingsDb.ensureIndex({ fieldName: "courseId" });
 }

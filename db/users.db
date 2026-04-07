@@ -1,2 +1,9 @@
+{"name":"Fiona MacRae","email":"fiona@student.local","passwordHash":"$2b$10$EFuCKR7J.RJKPd9TsRWScOsg.1yp9pICgsJ6JXW3c3t6.KdmLcTWa","role":"student","createdAt":"2026-04-07T13:12:12.820Z","_id":"25FPjPObwYZflSPa"}
+{"name":"Ava Chen","email":"ava@yoga.local","role":"instructor","createdAt":"2026-04-07T13:12:12.821Z","_id":"3RHnA2pU1ppafI80"}
+{"name":"Sarah Mitchell","email":"admin@yoga.local","passwordHash":"$2b$10$wv7Rhu8WKVpZE2L1XVYudujz6RcXxdiw6MwQypxduud6YQ0zMZWXm","role":"organiser","createdAt":"2026-04-07T13:12:12.808Z","_id":"FYautKShg21Xw9Hx"}
+{"name":"Claire Douglas","email":"claire@yoga.local","role":"instructor","createdAt":"2026-04-07T13:12:12.822Z","_id":"Iy8BjlzkF2N1yMdJ"}
+{"name":"Ben Kapoor","email":"ben@yoga.local","role":"instructor","createdAt":"2026-04-07T13:12:12.821Z","_id":"Npt4yp6xOeewnnrj"}
+{"name":"James Campbell","email":"james@student.local","passwordHash":"$2b$10$EFuCKR7J.RJKPd9TsRWScOsg.1yp9pICgsJ6JXW3c3t6.KdmLcTWa","role":"student","createdAt":"2026-04-07T13:12:12.820Z","_id":"lUuqJTx4UD5XJOHE"}
+{"name":"David Park","email":"david@yoga.local","role":"instructor","createdAt":"2026-04-07T13:12:12.822Z","_id":"p4RiLTgzMsPze8pg"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"name":"Fiona","email":"fiona@student.local","role":"student","_id":"cqhGQKxArmgTO1Se"}
+{"name":"marco barot","email":"marcobarot@gmail.com","passwordHash":"$2b$10$OYdZtbbkB0nLqBxFzvcWbuoW8mo8yfr1NYflUE03qzJyy4b8Twyq2","role":"student","createdAt":"2026-04-07T13:12:50.954Z","_id":"nTKvqIxZC68yAnSP"}

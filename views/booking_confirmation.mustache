@@ -8,10 +8,13 @@
 <dl class="kv">
   <dt>ID</dt><dd>{{booking.id}}</dd>
   <dt>Type</dt><dd>{{booking.type}}</dd>
-  <dt>Status</dt><dd>{{booking.status}}</dd>
+  <dt>Status</dt><dd><span class="badge {{booking.statusClass}}">{{booking.status}}</span></dd>
   <dt>Created</dt><dd>{{booking.createdAt}}</dd>
 </dl>
 
-<p><a class="btn" href></p>
+<div class="actions">
+  <a class="btn primary" href="/my-bookings">My Bookings</a>
+  <a class="btn" href="/courses">Browse more courses</a>
+</div>
 
-{{>
+{{> footer}}

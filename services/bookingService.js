@@ -9,6 +9,11 @@ const canReserveAll = (sessions) =>
 export async function bookCourseForUser(userId, courseId) {
   const course = await CourseModel.findById(courseId);
   if (!course) throw new Error("Course not found");
+
+  // Prevent duplicate bookings
+  const existing = await BookingModel.findExisting(userId, courseId);
+  if (existing) throw new Error("You have already booked this course");
+
   const sessions = await SessionModel.listByCourse(courseId);
   if (sessions.length === 0) throw new Error("Course has no sessions");
 
@@ -39,6 +44,10 @@ export async function bookSessionForUser(userId, sessionId) {
     err.code = "DROPIN_NOT_ALLOWED";
     throw err;
   }
+
+  // Prevent duplicate session bookings
+  const existing = await BookingModel.findExistingSession(userId, sessionId);
+  if (existing) throw new Error("You have already booked this session");
 
   let status = "CONFIRMED";
   if ((session.bookedCount ?? 0) >= (session.capacity ?? 0)) {

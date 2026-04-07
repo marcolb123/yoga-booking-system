@@ -1,0 +1,47 @@
+
+{{> head}}
+{{> header}}
+
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem">
+  <div>
+    <h1 style="margin:0">Class List</h1>
+    <p class="muted" style="margin:0.25rem 0 0">
+      <a href="/organiser/courses/{{course.id}}/edit">{{course.title}}</a>
+      &bull; {{session.start}} &ndash; {{session.end}}
+    </p>
+    <p class="muted" style="margin:0.25rem 0 0">Capacity: {{session.capacity}} &bull; Booked: {{session.bookedCount}} &bull; Participants listed: {{participantsCount}}</p>
+  </div>
+  <button class="btn" onclick="window.print()">Print</button>
+</div>
+
+{{#participantsCount}}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Booking Type</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#participants}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{bookingType}}</td>
+      <td><span class="badge {{statusClass}}">{{status}}</span></td>
+    </tr>
+    {{/participants}}
+  </tbody>
+</table>
+{{/participantsCount}}
+{{^participantsCount}}
+<p class="muted">No confirmed bookings for this session.</p>
+{{/participantsCount}}
+
+<div class="actions">
+  <a class="btn" href="/organiser/courses/{{course.id}}/edit">&larr; Back to Course</a>
+</div>
+
+{{> footer}}

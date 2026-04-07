@@ -1,30 +1,58 @@
 
-<select name="level">
-  <option value="" {{^filters.level}}selected{{/filters.level}}>Any</option>
-  <option value="beginner" {{#filters}}{{#level}} {{#isBeginner}}selected{{/isBeginner}} {{/level}}{{/filters}}>Beginner</option>
-</select>
+{{> head}}
+{{> header}}
+<h1>Courses</h1>
 
- <label>
+<section class="filters">
+  <form class="filter-form" action="/courses" method="get">
+    <label>
+      Level
+      <select name="level">
+        <option value="" {{^filters.level}}selected{{/filters.level}}>Any</option>
+        <option value="beginner" {{#filters.isBeginner}}selected{{/filters.isBeginner}}>Beginner</option>
+        <option value="intermediate" {{#filters.isIntermediate}}selected{{/filters.isIntermediate}}>Intermediate</option>
+        <option value="advanced" {{#filters.isAdvanced}}selected{{/filters.isAdvanced}}>Advanced</option>
+      </select>
+    </label>
+    <label>
+      Type
+      <select name="type">
+        <option value="" {{^filters.type}}selected{{/filters.type}}>Any</option>
+        <option value="WEEKLY_BLOCK" {{#filters.isWeeklyBlock}}selected{{/filters.isWeeklyBlock}}>Weekly Block</option>
+        <option value="WEEKEND_WORKSHOP" {{#filters.isWeekendWorkshop}}selected{{/filters.isWeekendWorkshop}}>Weekend Workshop</option>
+      </select>
+    </label>
+    <label>
+      Drop-in
+      <select name="dropin">
+        <option value="" {{^filters.dropin}}selected{{/filters.dropin}}>Any</option>
+        <option value="yes" {{#filters.dropinOnly}}selected{{/filters.dropinOnly}}>Drop-in available</option>
+      </select>
+    </label>
+    <label>
       Search
       <input type="search" name="q" value="{{filters.q}}" placeholder="Title or description" />
     </label>
-
-    <button class="btn" type="submit">Apply</button>
-    /coursesReset</a>
+    <div style="display:flex;gap:0.5rem;align-items:end">
+      <button class="btn primary" type="submit">Apply</button>
+      <a class="btn" href="/courses">Reset</a>
+    </div>
   </form>
 </section>
 
 <div class="cards">
   {{#courses}}
   <article class="card">
-    <h2>/courses/{{id}}{{title}}</a></h2>
+    <h2><a href="/courses/{{id}}">{{title}}</a></h2>
     <p class="muted">
-      Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
+      Level: {{level}} &bull; Type: {{type}} {{#allowDropIn}}&bull; Drop-in OK{{/allowDropIn}}
     </p>
     <p>{{description}}</p>
-    <p class="muted">Dates: {{startDate}} – {{endDate}}</p>
-    <p class="muted">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
-    <p>/courses/{{id}}View &amp; Book</a></p>
+    <p class="muted">Dates: {{startDate}} &ndash; {{endDate}}</p>
+    {{#location}}<p class="muted">Location: {{location}}</p>{{/location}}
+    {{#price}}<p class="muted">Price: {{price}}</p>{{/price}}
+    <p class="muted">Next session: {{nextSession}} &bull; Sessions: {{sessionsCount}}</p>
+    <a class="btn primary" href="/courses/{{id}}">View &amp; Book</a>
   </article>
   {{/courses}}
 
@@ -32,15 +60,17 @@
     <p>No courses match your filters.</p>
   {{/courses}}
 </div>
-<!-- 
+
 <nav class="pagination">
   {{#pagination.hasPrev}}
-    {{pagination.prevLink}}← Previous</a>
+    <a class="btn" href="{{pagination.prevLink}}">&larr; Previous</a>
   {{/pagination.hasPrev}}
-
+  {{#pagination.totalPages}}
   <span class="muted">Page {{pagination.page}} of {{pagination.totalPages}}</span>
-
+  {{/pagination.totalPages}}
   {{#pagination.hasNext}}
-    {{pagination.nextLink}}Next →</a>
+    <a class="btn" href="{{pagination.nextLink}}">Next &rarr;</a>
   {{/pagination.hasNext}}
-</nav> -->
+</nav>
+
+{{> footer}}

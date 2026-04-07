@@ -1,0 +1,37 @@
+
+{{> head}}
+{{> header}}
+
+<h1>Add Session</h1>
+<p class="muted">Course: <a href="/organiser/courses/{{course.id}}/edit">{{course.title}}</a></p>
+
+{{#errors}}
+<div class="alert error" role="alert">
+  <ul style="margin:0;padding-left:1.2rem">
+    {{#errors}}
+    <li>{{.}}</li>
+    {{/errors}}
+  </ul>
+</div>
+{{/errors}}
+
+<form method="post" action="/organiser/courses/{{course.id}}/sessions/new" style="max-width:480px">
+  <div class="field">
+    <label for="startDateTime">Start Date &amp; Time <span style="color:#c0392b">*</span></label>
+    <input id="startDateTime" name="startDateTime" type="datetime-local" required value="{{fields.startDateTime}}">
+  </div>
+  <div class="field">
+    <label for="endDateTime">End Date &amp; Time <span style="color:#c0392b">*</span></label>
+    <input id="endDateTime" name="endDateTime" type="datetime-local" required value="{{fields.endDateTime}}">
+  </div>
+  <div class="field">
+    <label for="capacity">Capacity <span style="color:#c0392b">*</span></label>
+    <input id="capacity" name="capacity" type="number" min="1" required value="{{fields.capacity}}" placeholder="e.g. 20">
+  </div>
+  <div class="actions">
+    <button class="btn primary" type="submit">Add Session</button>
+    <a class="btn" href="/organiser/courses/{{course.id}}/edit">Cancel</a>
+  </div>
+</form>
+
+{{> footer}}

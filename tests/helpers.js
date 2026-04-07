@@ -1,4 +1,5 @@
 // tests/helpers.js
+import jwt from "jsonwebtoken";
 import {
   initDb,
   usersDb,
@@ -26,12 +27,28 @@ export async function resetDb() {
   ]);
 }
 
+/**
+ * Build a signed JWT cookie string for use in supertest requests.
+ * @param {{ userId: string, name: string, role: string }} payload
+ * @returns {string} serialised cookie header value, e.g. "token=eyJ..."
+ */
+export function makeJwt(payload) {
+  const secret = process.env.JWT_SECRET || "fitclass_dev_secret_change_in_prod";
+  const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+  return `token=${token}`;
+}
+
 // Seed a minimal dataset used by multiple tests
 export async function seedMinimal() {
   const student = await UserModel.create({
     name: "Test Student",
     email: "student@test.local",
     role: "student",
+  });
+  const organiser = await UserModel.create({
+    name: "Test Organiser",
+    email: "organiser@test.local",
+    role: "organiser",
   });
   const instructor = await UserModel.create({
     name: "Test Instructor",
@@ -70,5 +87,5 @@ export async function seedMinimal() {
 
   await CourseModel.update(course._id, { sessionIds: [s1._id, s2._id] });
 
-  return { student, instructor, course, sessions: [s1, s2] };
+  return { student, organiser, instructor, course, sessions: [s1, s2] };
 }
