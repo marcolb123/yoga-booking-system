@@ -148,6 +148,13 @@ async function run() {
   console.log("Creating instructors…");
   const { ava, ben, claire, david } = await createInstructors();
 
+  // Add this check before seeding:
+  const existingUsers = await UserModel.list();
+  if (existingUsers.length > 0) {
+    console.log('Database already seeded, skipping...');
+    process.exit(0);
+  }
+
   // ── Weekly Course 1: Beginner Hatha Yoga (Monday evenings) ──
   console.log("Creating weekly courses…");
   await createCourseWithWeeklySessions(
